@@ -21,22 +21,6 @@ const User = require("./models/user");
 
 // CONTROLLERS
 const homeController = require("./controllers/homeController")
-
-// DATABASE CONFIGURATION
-mongoose.set("useNewUrlParser", true);
-mongoose.set("useUnifiedTopology", true);
-
-mongoose.Promise = global.Promise;
-
-mongoose.connect(process.env.DATABASE_URI || "mongodb://localhost:27017/worldbuilder")
-	.then(() => console.log("Database connected to successfully."))
-	.then(() => {
-		if (process.env.SEED_DB) {
-			console.log("Seeding database...");
-			// seedDatabase();
-		}
-	})
-	.catch((error) => console.log(`Database failed to connect:\n${error.message}.`));
 	
 // APP CONFIGURATION
 const app = express();
@@ -56,7 +40,10 @@ app.use(expressSession({
 	saveUninitialized: false
 }));
 
+// MIDDLEWARE
 app.use((request, response, next) => {
+	response.locals.title = "WorldBuilder";
+
 	response.locals.currentUser = request.user;
 
 	response.locals.errorMessage = request.flash("error");
@@ -72,6 +59,22 @@ app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+// DATABASE CONFIGURATION
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useUnifiedTopology", true);
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(process.env.DATABASE_URI || "mongodb://localhost:27017/worldbuilder")
+	.then(() => console.log("Database connected to successfully."))
+	.then(() => {
+		if (process.env.SEED_DB) {
+			console.log("Seeding database...");
+			// seedDatabase();
+		}
+	})
+	.catch((error) => console.log(`Database failed to connect:\n${error.message}.`));
 
 // CONTROLLER CONFIGURATION
 app.use("/", homeController);
