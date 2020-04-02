@@ -1,7 +1,9 @@
 <%- include("../partials/header") %>
 
 <div class="container">
-	
+	<% for (const planet of planets) { %>
+		<p><%= planet.name %></p>
+	<% } %>
 </div>
 
 <%- include("../partials/footer") %>

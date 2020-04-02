@@ -12,7 +12,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 
 // UTILITIES
-
+const seedDatabase = require("./seed");
 
 // MODELS
 const Comment = require("./models/comment");
@@ -72,7 +72,7 @@ mongoose.connect(process.env.DATABASE_URI || "mongodb://localhost:27017/worldbui
 	.then(() => {
 		if (process.env.SEED_DB) {
 			console.log("Seeding database...");
-			// seedDatabase();
+			seedDatabase();
 		}
 	})
 	.catch((error) => console.log(`Database failed to connect:\n${error.message}.`));
