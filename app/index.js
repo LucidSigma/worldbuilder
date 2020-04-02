@@ -16,11 +16,10 @@ const LocalStrategy = require("passport-local");
 
 
 // CONTROLLERS
-
+const homeController = require("./controllers/homeController")
 
 // DATABASE CONFIGURATION
 mongoose.set("useNewUrlParser", true);
-mongoose.set("useFindAndModify", false);
 mongoose.set("useUnifiedTopology", true);
 
 mongoose.Promise = global.Promise;
@@ -29,8 +28,14 @@ const databaseURI = process.env.DATABASE_URI || "mongodb://localhost:27017/world
 
 mongoose.connect(databaseURI)
 	.then(() => console.log("Database connected to successfully."))
-	.catch((error) => console.log(`Database failed to connect: ${error.message}.`));
-
+	.then(() => {
+		if (process.env.SEED_DB) {
+			console.log("Seeding database...");
+			// seedDatabase();
+		}
+	})
+	.catch((error) => console.log(`Database failed to connect:\n${error.message}.`));
+	
 // APP CONFIGURATION
 const app = express();
 
@@ -66,10 +71,8 @@ app.use(passport.session());
 //passport.serializeUser(User.serializeUser());
 //passport.deserializeUser(User.deserializeUser());
 
-// ROUTES (PUT INTO OTHER FILE)
-app.get("/", (request, response) => {
-	response.render("home");
-});
+// CONTROLLER CONFIGURATION
+app.use("/", homeController);
 
 // SERVER CONFIGURATION
 const DEFAULT_PORT = 3000;
