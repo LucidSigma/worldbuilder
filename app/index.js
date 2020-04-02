@@ -20,7 +20,8 @@ const Planet = require("./models/planet");
 const User = require("./models/user");
 
 // CONTROLLERS
-const homeController = require("./controllers/homeController")
+const homeController = require("./controllers/homeController");
+const planetController = require("./controllers/planetController");
 	
 // APP CONFIGURATION
 const app = express();
@@ -78,6 +79,7 @@ mongoose.connect(process.env.DATABASE_URI || "mongodb://localhost:27017/worldbui
 
 // CONTROLLER CONFIGURATION
 app.use("/", homeController);
+app.use("/planets/", planetController);
 
 // SERVER CONFIGURATION
 const DEFAULT_PORT = 3000;
