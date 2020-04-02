@@ -1,3 +1,5 @@
+"use strict";
+
 // REQUIRED MODULES
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
@@ -13,7 +15,9 @@ const LocalStrategy = require("passport-local");
 
 
 // MODELS
-
+const Comment = require("./models/comment");
+const Planet = require("./models/planet");
+const User = require("./models/user");
 
 // CONTROLLERS
 const homeController = require("./controllers/homeController")
@@ -24,9 +28,7 @@ mongoose.set("useUnifiedTopology", true);
 
 mongoose.Promise = global.Promise;
 
-const databaseURI = process.env.DATABASE_URI || "mongodb://localhost:27017/worldbuilder";
-
-mongoose.connect(databaseURI)
+mongoose.connect(process.env.DATABASE_URI || "mongodb://localhost:27017/worldbuilder")
 	.then(() => console.log("Database connected to successfully."))
 	.then(() => {
 		if (process.env.SEED_DB) {
@@ -55,7 +57,7 @@ app.use(expressSession({
 }));
 
 app.use((request, response, next) => {
-	//response.locals.currentUser = request.user;
+	response.locals.currentUser = request.user;
 
 	response.locals.errorMessage = request.flash("error");
 	response.locals.successMessage = request.flash("success");
@@ -67,9 +69,9 @@ app.use((request, response, next) => {
 app.use(passport.initialize());
 app.use(passport.session());
 
-//passport.use(new LocalStrategy(User.authenticate()));
-//passport.serializeUser(User.serializeUser());
-//passport.deserializeUser(User.deserializeUser());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
 // CONTROLLER CONFIGURATION
 app.use("/", homeController);
