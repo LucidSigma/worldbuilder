@@ -1,20 +1,77 @@
+// REQUIRED MODULES
 const bodyParser = require("body-parser");
+const flash = require("connect-flash");
+const cookieParser = require("cookie-parser");
 const express = require("express");
+const expressSession = require("express-session");
 const methodOverride = require("method-override");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
 
+// UTILITIES
+
+
+// MODELS
+
+
+// CONTROLLERS
+
+
+// DATABASE CONFIGURATION
+mongoose.set("useNewUrlParser", true);
+mongoose.set("useFindAndModify", false);
+mongoose.set("useUnifiedTopology", true);
+
+mongoose.Promise = global.Promise;
+
+const databaseURI = process.env.DATABASE_URI || "mongodb://localhost:27017/worldbuilder";
+
+mongoose.connect(databaseURI)
+	.then(() => console.log("Database connected to successfully."))
+	.catch((error) => console.log(`Database failed to connect: ${error.message}.`));
+
+// APP CONFIGURATION
 const app = express();
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/../public/views/");
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(__dirname + "/public"));
+app.use(cookieParser("bog-ana-fog-ana-see"));
+app.use(express.static(__dirname + "./public/"));
 app.use(methodOverride("_method"));
+app.use(flash());
 
+app.use(expressSession({
+	secret: "bog-ana-fog-ana-see",
+	resave: false,
+	saveUninitialized: false
+}));
+
+app.use((request, response, next) => {
+	//response.locals.currentUser = request.user;
+
+	response.locals.errorMessage = request.flash("error");
+	response.locals.successMessage = request.flash("success");
+
+	next();
+});
+
+// PASSPORT CONFIGURATION
+app.use(passport.initialize());
+app.use(passport.session());
+
+//passport.use(new LocalStrategy(User.authenticate()));
+//passport.serializeUser(User.serializeUser());
+//passport.deserializeUser(User.deserializeUser());
+
+// ROUTES (PUT INTO OTHER FILE)
 app.get("/", (request, response) => {
 	response.render("home");
 });
 
+// SERVER CONFIGURATION
 const DEFAULT_PORT = 3000;
 
 app.listen(process.env.PORT || DEFAULT_PORT, process.env.IP, () => {
