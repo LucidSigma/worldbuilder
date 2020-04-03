@@ -37,7 +37,7 @@ router.post("/", async (request, response) => {
 
 	try {
 		const createdPlanet = await Planet.create(planetData);
-		request.flash("success", "Planet created successfully.");
+		request.flash("success", `Planet ${createdPlanet.name} created successfully.`);
 	}
 	catch (error) {
 		request.flash("error", "Failed to create planet, please try again.");
