@@ -8,45 +8,45 @@
 	<form action="/planets" method="POST">
 		<div class="form-group">
 			<label for="planetName">Name</label>
-			<input id="planetName" class="form-control" type="text" name="planet[name]" placeholder="Planet name">
+			<input id="planetName" class="form-control" type="text" name="planet[name]" placeholder="Planet name" required>
 		</div>
 
 		<div class="row">
 			<div class="col-12 col-sm-6 col-md-4">
 				<div class="form-group">
 					<label for="planetColour">Colour</label>
-					<input id="planetColour" class="form-control" type="color" name="planet[colour]" placeholder="Planet colour">
+					<input id="planetColour" class="form-control" type="color" name="planet[colour]" placeholder="Planet colour" required>
 				</div>		
 			</div>
 
 			<div class="col-12 col-sm-6 col-md-4">
 				<div class="form-group">
 					<label for="planetDiameter">Diameter (km)</label>
-					<input id="planetDiameter" class="form-control" type="number" name="planet[diameter]" value="1000" step="100" min="100">
+					<input id="planetDiameter" class="form-control" type="number" name="planet[diameter]" value="1000" step="100" min="100" required>
 				</div>	
 			</div>
 
 			<div class="col-12 col-sm-6 col-md-4">
 				<div class="form-group">
 					<label for="planetMoonCount">Moon count</label>
-					<input id="planetMoonCount" class="form-control" type="number" name="planet[moonCount]" value="0" step="1" min="0">
+					<input id="planetMoonCount" class="form-control" type="number" name="planet[moonCount]" value="0" step="1" min="0" required>
 				</div>
 			</div>
 		</div>
 		
 		<div class="form-group">
 			<label for="planetDescription">Description</label>
-			<textarea id="planetDescription" class="form-control" name="planet[description]" rows="4" placeholder="Planet description..."></textarea>
+			<textarea id="planetDescription" class="form-control" name="planet[description]" rows="4" placeholder="Planet description..." required></textarea>
 		</div>
 
 		<div class="form-group">
 			<label for="planetStarName">Star Name</label>
-			<input id="planetStarName" class="form-control" type="text" name="planet[starName]" placeholder="Star name">
+			<input id="planetStarName" class="form-control" type="text" name="planet[starName]" placeholder="Star name" required>
 		</div>
 
 		<div class="form-group">
 			<label for="planetDistanceFromStar">Distance from star (AU)</label>
-			<input id="planetDistanceFromStar" class="form-control" name="planet[distanceFromStar]" type="number" value="1.0" step="0.1" min="0.1">
+			<input id="planetDistanceFromStar" class="form-control" name="planet[distanceFromStar]" type="number" value="1.0" step="0.1" min="0.1" required>
 		</div>
 
 		<button class="btn btn-primary" type="submit">Create</button>

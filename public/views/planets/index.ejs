@@ -3,10 +3,15 @@
 <%- include("../partials/flash") %>
 
 <div class="container">
+	<h1 class="diplay-3">All Planets</h1>
+	<p class="lead">A list of all worlds created by users.</p>
+	<a class="btn btn-success" href="/planets/new">Create a Planet</a>
+	<hr>
+
 	<div class="row">
 		<% for (const planet of planets) { %>
 			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card">
+				<div class="card mb-2">
 					<div class="card-img-top" style="height: 150px; background-color: black;">
 						<div style="border-radius: 50%; background-color: <%= planet.colour %>; width: 100px; height: 100px; margin: 25px auto;"></div>
 					</div>
