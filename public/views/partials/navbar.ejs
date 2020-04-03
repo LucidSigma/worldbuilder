@@ -1,0 +1,45 @@
+<div class="mb-3">
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+		<div class="container">
+			<a class="navbar-brand" href="/">WorldBuilder</a>
+	
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+	
+			<div id="navbarContent" class="collapse navbar-collapse">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item">
+						<a class="nav-link" href="/planets">Planets</a>
+					</li>
+				</ul>
+	
+				<ul class="navbar-nav ml-auto">
+					<% if (currentUser === undefined) { %>
+						<li class="nav-item">
+							<a class="nav-link" href="/login">Login</a>
+						</li>
+		
+						<li class="nav-item">
+							<a class="nav-link" href="/register">Sign Up</a>
+						</li>
+					<% } else { %> 
+						<li class="nav-item">
+							<a class="nav-link" href="/logout">Logout</a>
+						</li>
+					<% } %>
+				</ul>
+			</div>
+		</div>
+	</nav>
+</div>
+
+<div class="container">
+	<% for (const flashMessage of [{ message: successMessage, type: "success" }, {message: errorMessage, type: "danger" }]) { %>
+		<% if (flashMessage.message !== undefined && flashMessage.message.length > 0) { %>
+			<div class="alert alert-<%= flashMessage.type %>" role="alert">
+				<%= flashMessage.message %>
+			</div>
+		<% } %>
+	<% } %>
+</div>

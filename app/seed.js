@@ -57,7 +57,7 @@ async function seedDatabase() {
 		}
 	}
 	catch (error) {
-		// TODO: Handle error with flash messages
+		console.log("Failed to seed database:\n" + error.message);
 	}
 }
 

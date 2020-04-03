@@ -3,7 +3,6 @@
 // REQUIRED MODULES
 const bodyParser = require("body-parser");
 const flash = require("connect-flash");
-const cookieParser = require("cookie-parser");
 const express = require("express");
 const expressSession = require("express-session");
 const methodOverride = require("method-override");
@@ -30,7 +29,6 @@ app.set("view engine", "ejs");
 app.set("views", __dirname + "/../public/views/");
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser("bog-ana-fog-ana-see"));
 app.use(express.static(__dirname + "./public/"));
 app.use(methodOverride("_method"));
 app.use(flash());
