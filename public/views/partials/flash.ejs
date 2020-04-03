@@ -1,0 +1,11 @@
+<% if ((successMessage !== undefined && successMessage.length > 0) || (errorMessage !== undefined && errorMessage.length > 0)) { %>
+	<div class="container">
+		<% for (const flashMessage of [{ message: successMessage, type: "success" }, {message: errorMessage, type: "danger" }]) { %>
+			<% if (flashMessage.message !== undefined && flashMessage.message.length > 0) { %>
+				<div class="alert alert-<%= flashMessage.type %>" role="alert">
+					<%= flashMessage.message %>
+				</div>
+			<% } %>
+		<% } %>
+	</div>
+<% } %>
