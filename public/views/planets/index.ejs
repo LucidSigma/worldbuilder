@@ -20,7 +20,7 @@
 						<h4 class="card-title"><%= planet.name %></h4>
 						<p class="card-text"><small class="text-muted">Created by <%= planet.author %>.</small></p>
 						<p class="card-text"><%= planet.description.length > 250 ? planet.description.substring(0, 250) + "..." : planet.description %></p>
-						<a clas="btn btn-warning" href="#">More Info</a>
+						<a clas="btn btn-warning" href="/planets/<%= planet._id %>">More Info</a>
 					</div>
 				</div>
 			</div>

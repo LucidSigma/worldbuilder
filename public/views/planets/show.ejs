@@ -1,0 +1,48 @@
+<%- include("../partials/header") %>
+<%- include("../partials/navbar") %>
+<%- include("../partials/flash") %>
+
+<div class="container">
+	<div class="row mb-4">
+		<div class="col-12">
+			<div class="border rounded p-4">
+				<h2 class="display-4 text-center mb-3"><%= planet.name %></h2>
+			<hr class="d-none d-sm-block mx-sm-2">
+			<p><%= planet.description %></p>
+			</div>
+		</div>
+	</div>
+
+	<div class="row mb-4">
+		<div class="col-12 col-md-8">
+			<div class="border border-dark rounded" style="display: flex; height: 400px; background-color: black;">
+				<div class="m-auto rounded-circle" style="position: relative; width: 25%; height: 0; padding-bottom: 25%; background-color: <%= planet.colour %>;"></div>
+			</div>
+		</div>
+
+		<div class="col-12 col-md-4">
+			<div class="card">
+				<div class="card-header">
+					<h5>Information</h5>
+				</div>
+
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item"><strong>Diameter:</strong> <%= planet.diameter %>km</li>
+					<li class="list-group-item"><strong>Moons:</strong> <%= planet.moonCount %></li>
+					<li class="list-group-item"><strong>Star name:</strong> <%= planet.starName %></li>
+					<li class="list-group-item"><strong>Distance from star:</strong> <%= planet.distanceFromStar %>AU</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="col-12">
+			COMMENTS!
+		</div>
+	</div>
+
+	<!-- Add particle image here -->
+	<!-- Display data on right side -->
+	<!-- List comments here (or no comments) -->
+</div>
+
+<%- include("../partials/footer") %>

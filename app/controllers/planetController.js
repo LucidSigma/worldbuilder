@@ -47,8 +47,22 @@ router.post("/", async (request, response) => {
 });
 
 // SHOW
+router.get("/:planet_id", async (request, response) => {
+	try {
+		const foundPlanet = await Planet.findById(request.params["planet_id"]).populate("comments").exec();
+
+		response.render("planets/show", {
+			planet: foundPlanet
+		});
+	}
+	catch (error) {
+		request.flash("error", "A planet with that specified ID cannot be found." + error.message);
+		response.redirect("/planets");
+	}
+});
 
 // EDIT
+
 
 // UPDATE
 
