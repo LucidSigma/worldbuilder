@@ -9,6 +9,12 @@
 				<h2 class="display-4 text-center mb-3"><%= planet.name %></h2>
 			<hr class="d-none d-sm-block mx-sm-2">
 			<p><%= planet.description %></p>
+
+			<a class="btn btn-warning btn-md" href="/planets/<%= planet._id %>/edit">Edit</a>
+
+			<form class="d-inline" action="/planets/<%= planet._id %>?_method=DELETE" method="POST">
+				<button class="btn btn-danger btn-md">Delete</button>
+			</form>
 			</div>
 		</div>
 	</div>

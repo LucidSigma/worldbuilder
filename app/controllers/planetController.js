@@ -56,16 +56,48 @@ router.get("/:planet_id", async (request, response) => {
 		});
 	}
 	catch (error) {
-		request.flash("error", "A planet with that specified ID cannot be found." + error.message);
+		request.flash("error", "A planet with that specified ID cannot be found.");
 		response.redirect("/planets");
 	}
 });
 
 // EDIT
+// TODO: Add owndership middleware.
+router.get("/:planet_id/edit", async (request, response) => {
+	try {
+		const foundPlanet = await Planet.findById(request.params["planet_id"]);
 
+		response.render("planets/edit", {
+			planet: foundPlanet
+		})
+	}
+	catch (error) {
+		request.flash("error", "A planet with that specified ID cannot be found.");
+		response.redirect("/planets");
+	}
+});
 
 // UPDATE
+// TODO: Add owndership middleware.
+router.put("/:planet_id", async (request, response) => {
+	try {
+		const updatedPlanet = await Planet.findByIdAndUpdate(request.params["planet_id"], request.body.planet);
+		request.flash("success", `Planet ${updatedPlanet.name} updated successfully.`);
+	}
+	catch (error) {
+		request.flash("error", "Failed to update planet, please try again.");
+	}
+
+	response.redirect(`/planets/${request.params["planet_id"]}`);
+});
 
 // DESTROY
+// TODO: Add owndership middleware.
+router.delete("/:planet_id", async (request, response) => {
+	await Planet.findByIdAndRemove(request.params["planet_id"]);
+
+	request.flash("success", `Planet was deleted.`);
+	response.redirect("/planets");
+});
 
 module.exports = router;
