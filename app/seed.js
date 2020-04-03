@@ -1,13 +1,16 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const passport = require("passport");
 
+const Comment = require("./models/comment");
 const Planet = require("./models/planet");
+const User = require("./models/user");
 
 const seedData = [
 	{
 		name: "Mercury",
-		colour: "grey",
+		colour: "#808080",
 		description: "A small, rocky, cratered world.",
 		diameter: 4500,
 		moonCount: 0,
@@ -17,7 +20,7 @@ const seedData = [
 
 	{
 		name: "Venus",
-		colour: "beige",
+		colour: "#F5F5DC",
 		description: "A world with a thick, dense atmosphere.",
 		diameter: 12100,
 		moonCount: 0,
@@ -27,7 +30,7 @@ const seedData = [
 
 	{
 		name: "Earth",
-		colour: "blue",
+		colour: "#0000FF",
 		description: "A geologically active world that can support life as is.",
 		diameter: 12700,
 		moonCount: 1,
@@ -37,7 +40,7 @@ const seedData = [
 
 	{
 		name: "Mars",
-		colour: "maroon",
+		colour: "#800000",
 		description: "A rocky world with a reddish colour due to iron oxide.",
 		diameter: 6800,
 		moonCount: 2,
@@ -48,11 +51,40 @@ const seedData = [
 
 async function seedDatabase() {
 	try {
+		await Comment.deleteMany({ });
+		console.log("Comments removed.");
+
 		await Planet.deleteMany({ });
 		console.log("Planets removed.");
 
+		await User.deleteMany({ });
+		console.log("Users removed.");
+
+		const testUser = new User({
+			username: "Test"
+		});
+
+		await User.register(testUser, "test");
+		console.log("Created test user.");
+
 		for (const planet of seedData) {
 			const createdPlanet = await Planet.create(planet);
+			createdPlanet.author = {
+				id: testUser._id,
+				username: testUser.username
+			};
+
+			const comment = await Comment.create({
+				text: "This is a test comment.",
+				author: {
+					id: testUser._id,
+					username: testUser.username
+				}
+			});
+
+			createdPlanet.comments.push(comment);
+			createdPlanet.save();
+
 			console.log(`Created planet: ${createdPlanet.name}.`);
 		}
 	}

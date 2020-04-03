@@ -26,7 +26,7 @@ router.get("/new", (request, response) => {
 // TODO: Add logged in middleware.
 router.post("/", async (request, response) => {
 	let planetData = request.body.planet;
-	planetData.comments = [];
+	
 	// Add in planet author here.
 	/*
 	planetData.author = {
@@ -93,6 +93,7 @@ router.put("/:planet_id", async (request, response) => {
 
 // DESTROY
 // TODO: Add owndership middleware.
+// TODO: Add modal to ensure user wants to delete.
 router.delete("/:planet_id", async (request, response) => {
 	await Planet.findByIdAndRemove(request.params["planet_id"]);
 
