@@ -68,10 +68,10 @@ router.get("/:comment_id/edit", middleware.checkCommentOwnership, async (request
 });
 
 // UPDATE
-router.post("/:comment_id", middleware.checkCommentOwnership, async (request, response) => {
+router.put("/:comment_id", middleware.checkCommentOwnership, async (request, response) => {
 	try {
 		const updatedComment = await Comment.findByIdAndUpdate(request.params["comment_id"], request.body.comment);
-		
+
 		request.flash("success", `Comment updated successfully.`);
 		response.redirect(`/planets/${request.params["planet_id"]}`);
 	}
@@ -82,6 +82,17 @@ router.post("/:comment_id", middleware.checkCommentOwnership, async (request, re
 });
 
 // DESTROY
+router.delete("/:comment_id", middleware.checkCommentOwnership, async (request, response) => {
+	try {
+		await Comment.findByIdAndRemove(request.params["comment_id"]);
 
+		request.flash("success", "Comment was deleted.");
+		response.redirect(`/planets/${request.params["planet_id"]}`);
+	}
+	catch (error) {
+		request.flash("error", "Failed to delete comment, please try again.");
+		response.redirect("back");
+	}
+});
 
 module.exports = router;

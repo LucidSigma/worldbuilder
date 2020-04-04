@@ -22,7 +22,7 @@
 		</div>
 	</div>
 
-	<div class="row mb-4">
+	<div class="row mb-2">
 		<div class="col-12 col-md-8">
 			<div class="border border-dark rounded" style="display: flex; height: 400px; background-color: black;">
 				<div class="m-auto rounded-circle" style="position: relative; width: 25%; height: 0; padding-bottom: 25%; background-color: <%= planet.colour %>;"></div>
@@ -45,10 +45,12 @@
 		</div>
 	</div>
 
+	<a class="btn btn-success mb-2" href="/planets/<%= planet._id %>/comments/new">Add a New Comment</a>
+
 	<div class="row mb-4">
 		<div class="col-12">
-			<% for (const comment of planet.comments) { %>
-				<div class="list-group">
+			<div class="list-group">
+				<% for (const comment of planet.comments) { %>
 					<div class="list-group-item">
 						<div class="d-flex w-100 justify-content-between">
 							<h5 class="mb-1"><%= comment.author.username %> says:</h5>
@@ -66,8 +68,8 @@
 							</form>
 						<% } %>
 					</div>
-				</div>
-			<% } %>
+				<% } %>
+			</div>
 		</div>
 	</div>
 </div>

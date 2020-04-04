@@ -90,10 +90,16 @@ router.put("/:planet_id", middleware.checkPlanetOwnership, async (request, respo
 // DESTROY
 // TODO: Add modal to ensure user wants to delete.
 router.delete("/:planet_id", middleware.checkPlanetOwnership, async (request, response) => {
-	await Planet.findByIdAndRemove(request.params["planet_id"]);
+	try {
+		await Planet.findByIdAndRemove(request.params["planet_id"]);
 
-	request.flash("success", "Planet was deleted.");
-	response.redirect("/planets");
+		request.flash("success", "Planet was deleted.");
+		response.redirect("/planets");
+	}
+	catch (error) {
+		request.flash("error", "Failed to delete planet, please try again.");
+		response.redirect("back");
+	}
 });
 
 module.exports = router;
