@@ -52,10 +52,34 @@ router.post("/", middleware.isLoggedIn, async (request, response) => {
 });
 
 // EDIT
+router.get("/:comment_id/edit", middleware.checkCommentOwnership, async (request, response) => {
+	try {
+		const foundComment = await Comment.findById(request.params["comment_id"]);
 
+		response.render("comments/edit", {
+			planetID: request.params["planet_id"],
+			comment: foundComment
+		});
+	}
+	catch (error) {
+		request.flash("error", "A comment with that specified ID cannot be found.");
+		response.redirect(`/planets/${request.params["planet_id"]}`);
+	}
+});
 
 // UPDATE
-
+router.post("/:comment_id", middleware.checkCommentOwnership, async (request, response) => {
+	try {
+		const updatedComment = await Comment.findByIdAndUpdate(request.params["comment_id"], request.body.comment);
+		
+		request.flash("success", `Comment updated successfully.`);
+		response.redirect(`/planets/${request.params["planet_id"]}`);
+	}
+	catch (error) {
+		request.flash("Failed to update comment, please try again.");
+		response.redirect("back");
+	}
+});
 
 // DESTROY
 
