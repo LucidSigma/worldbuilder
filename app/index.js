@@ -20,6 +20,7 @@ const Planet = require("./models/planet");
 const User = require("./models/user");
 
 // CONTROLLERS
+const commentController = require("./controllers/commentController");
 const homeController = require("./controllers/homeController");
 const planetController = require("./controllers/planetController");
 	
@@ -81,6 +82,7 @@ app.use((request, response, next) => {
 // CONTROLLER CONFIGURATION
 app.use("/", homeController);
 app.use("/planets/", planetController);
+app.use("/planets/:planet_id/comments/", commentController);
 
 // SERVER CONFIGURATION
 const DEFAULT_PORT = 3000;

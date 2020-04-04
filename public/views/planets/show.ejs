@@ -57,6 +57,14 @@
 						</div>
 
 						<p class="mb-1"><%= comment.text %></p>
+
+						<% if (currentUser !== undefined && comment.author.id.equals(currentUser._id)) { %>
+							<a class="btn btn-warning btn-sm" href="/planets/<%= planet._id %>/comments/<%= planet._id %>/edit">Edit</a>
+		
+							<form class="d-inline" action="/planets/<%= planet._id %>/comments/<%= planet._id %>?_method=DELETE" method="POST">
+								<button class="btn btn-danger btn-sm">Delete</button>
+							</form>
+						<% } %>
 					</div>
 				</div>
 			<% } %>
