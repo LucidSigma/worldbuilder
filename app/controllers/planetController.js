@@ -2,6 +2,8 @@
 
 const express = require("express");
 
+const middleware = require("../middleware");
+
 const Planet = require("../models/planet");
 
 const router = express.Router();
@@ -17,14 +19,12 @@ router.get("/", async (request, response) => {
 });
 
 // NEW
-// TODO: Add logged in middleware.
-router.get("/new", (request, response) => {
+router.get("/new", middleware.isLoggedIn, (request, response) => {
 	response.render("planets/new");
 });
 
 // CREATE
-// TODO: Add logged in middleware.
-router.post("/", async (request, response) => {
+router.post("/", middleware.isLoggedIn, async (request, response) => {
 	let planetData = request.body.planet;
 
 	planetData.author = {
@@ -59,8 +59,7 @@ router.get("/:planet_id", async (request, response) => {
 });
 
 // EDIT
-// TODO: Add owndership middleware.
-router.get("/:planet_id/edit", async (request, response) => {
+router.get("/:planet_id/edit", middleware.checkPlanetOwnership, async (request, response) => {
 	try {
 		const foundPlanet = await Planet.findById(request.params["planet_id"]);
 
@@ -75,8 +74,7 @@ router.get("/:planet_id/edit", async (request, response) => {
 });
 
 // UPDATE
-// TODO: Add owndership middleware.
-router.put("/:planet_id", async (request, response) => {
+router.put("/:planet_id", middleware.checkPlanetOwnership, async (request, response) => {
 	try {
 		const updatedPlanet = await Planet.findByIdAndUpdate(request.params["planet_id"], request.body.planet);
 		request.flash("success", `Planet ${updatedPlanet.name} updated successfully.`);
@@ -89,9 +87,8 @@ router.put("/:planet_id", async (request, response) => {
 });
 
 // DESTROY
-// TODO: Add owndership middleware.
 // TODO: Add modal to ensure user wants to delete.
-router.delete("/:planet_id", async (request, response) => {
+router.delete("/:planet_id", middleware.checkPlanetOwnership, async (request, response) => {
 	await Planet.findByIdAndRemove(request.params["planet_id"]);
 
 	request.flash("success", "Planet was deleted.");
