@@ -8,22 +8,33 @@
 	<a class="btn btn-success" href="/planets/new">Create a Planet</a>
 	<hr>
 
+	<form class="form-inline mb-3" action="/planets" method="GET">
+		<div class="form-group">
+			<label class="sr-only" for="search">Search by name.</label>
+			<input class="form-control mr-2" id="search" type="text" name="search">
+		</div>
+
+		<button class="btn btn-primary d-inline" type="submit">Search by Name</button>
+	</form>
+
 	<div class="row">
 		<% for (const planet of planets) { %>
-			<div class="col-12 col-md-6 col-lg-4">
-				<div class="card mb-2">
-					<div class="card-img-top" style="height: 150px; background-color: black;">
-						<div style="border-radius: 50%; background-color: <%= planet.colour %>; width: 100px; height: 100px; margin: 25px auto;"></div>
-					</div>
-	
-					<div class="card-body">
-						<h4 class="card-title"><%= planet.name %></h4>
-						<p class="card-text"><small class="text-muted">Created by <%= planet.author.username %>.</small></p>
-						<p class="card-text"><%= planet.description.length > 250 ? planet.description.substring(0, 250) + "..." : planet.description %></p>
-						<a clas="btn btn-warning" href="/planets/<%= planet._id %>">More Info</a>
+			<% if (searchQuery === undefined || searchQuery.length === 0 || planet.name.toLowerCase().search(searchQuery.toLowerCase().trim()) !== -1) { %>
+				<div class="col-12 col-md-6 col-lg-4">
+					<div class="card mb-2">
+						<div class="card-img-top" style="height: 150px; background-color: black;">
+							<div style="border-radius: 50%; background-color: <%= planet.colour %>; width: 100px; height: 100px; margin: 25px auto;"></div>
+						</div>
+		
+						<div class="card-body">
+							<h4 class="card-title"><%= planet.name %></h4>
+							<p class="card-text"><small class="text-muted">Created by <%= planet.author.username %>.</small></p>
+							<p class="card-text"><%= planet.description.length > 250 ? planet.description.substring(0, 250) + "..." : planet.description %></p>
+							<a clas="btn btn-warning" href="/planets/<%= planet._id %>">More Info</a>
+						</div>
 					</div>
 				</div>
-			</div>
+			<% } %>
 		<% } %>
 	</div>
 </div>

@@ -14,7 +14,8 @@ router.get("/", async (request, response) => {
 	const planets = await Planet.find({ });
 
 	response.render("planets/index", {
-		planets: planets
+		planets: planets,
+		searchQuery: request.query["search"]
 	});
 });
 
