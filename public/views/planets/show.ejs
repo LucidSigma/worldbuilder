@@ -13,10 +13,7 @@
 
 				<% if (currentUser !== undefined && planet.author.id.equals(currentUser._id)) { %>
 					<a class="btn btn-warning btn-md" href="/planets/<%= planet._id %>/edit">Edit</a>
-
-					<form class="d-inline" action="/planets/<%= planet._id %>?_method=DELETE" method="POST">
-						<button class="btn btn-danger btn-md">Delete</button>
-					</form>
+					<button class="btn btn-danger btn-md" type="button" data-toggle="modal" data-target="#deletePromptModal">Delete</button>
 				<% } %>
 			</div>
 		</div>
@@ -69,6 +66,31 @@
 						<% } %>
 					</div>
 				<% } %>
+			</div>
+		</div>
+	</div>
+
+	<div id="deletePromptModal" class="modal fade" tabindex="-1" role="alert" aria-labelledby="deletePromptLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 id="deletePromptLabel" class="modal-title">Delete <%= planet.name %></h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body">
+					<p>Are you sure you want to delete <%= planet.name %>?</p>
+				</div>
+
+				<div class="modal-footer">
+					<button class="btn btn-secondary btn-md" type="button" data-dismiss="modal">Cancel</button>
+
+					<form class="d-inline" action="/planets/<%= planet._id %>?_method=DELETE" method="POST">
+						<button class="btn btn-danger btn-md">Delete</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>

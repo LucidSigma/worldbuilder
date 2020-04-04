@@ -88,7 +88,6 @@ router.put("/:planet_id", middleware.checkPlanetOwnership, async (request, respo
 });
 
 // DESTROY
-// TODO: Add modal to ensure user wants to delete.
 router.delete("/:planet_id", middleware.checkPlanetOwnership, async (request, response) => {
 	try {
 		await Planet.findByIdAndRemove(request.params["planet_id"]);
