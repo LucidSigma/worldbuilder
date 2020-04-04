@@ -26,14 +26,11 @@ router.get("/new", (request, response) => {
 // TODO: Add logged in middleware.
 router.post("/", async (request, response) => {
 	let planetData = request.body.planet;
-	
-	// Add in planet author here.
-	/*
+
 	planetData.author = {
 		id: request.user._id,
 		username: request.user.username
 	};
-	*/
 
 	try {
 		const createdPlanet = await Planet.create(planetData);
@@ -97,7 +94,7 @@ router.put("/:planet_id", async (request, response) => {
 router.delete("/:planet_id", async (request, response) => {
 	await Planet.findByIdAndRemove(request.params["planet_id"]);
 
-	request.flash("success", `Planet was deleted.`);
+	request.flash("success", "Planet was deleted.");
 	response.redirect("/planets");
 });
 

@@ -2,9 +2,10 @@
 
 // REQUIRED MODULES
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const flash = require("connect-flash");
 const express = require("express");
-const expressSession = require("express-session");
+const session = require("express-session");
 const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -29,27 +30,16 @@ app.set("view engine", "ejs");
 app.set("views", __dirname + "/../public/views/");
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 app.use(express.static(__dirname + "./public/"));
 app.use(methodOverride("_method"));
 app.use(flash());
 
-app.use(expressSession({
+app.use(session({
 	secret: "bog-ana-fog-ana-see",
 	resave: false,
 	saveUninitialized: false
 }));
-
-// MIDDLEWARE
-app.use((request, response, next) => {
-	response.locals.title = "WorldBuilder";
-
-	response.locals.currentUser = request.user;
-
-	response.locals.errorMessage = request.flash("error");
-	response.locals.successMessage = request.flash("success");
-
-	next();
-});
 
 // PASSPORT CONFIGURATION
 app.use(passport.initialize());
@@ -74,6 +64,18 @@ mongoose.connect(process.env.DATABASE_URI || "mongodb://localhost:27017/worldbui
 		}
 	})
 	.catch((error) => console.log(`Database failed to connect:\n${error.message}.`));
+
+// MIDDLEWARE
+app.use((request, response, next) => {
+	response.locals.title = "WorldBuilder";
+
+	response.locals.currentUser = request.user;
+
+	response.locals.errorMessage = request.flash("error");
+	response.locals.successMessage = request.flash("success");
+
+	next();
+});
 
 // CONTROLLER CONFIGURATION
 app.use("/", homeController);

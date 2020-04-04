@@ -1,8 +1,5 @@
 "use strict";
 
-const mongoose = require("mongoose");
-const passport = require("passport");
-
 const Comment = require("./models/comment");
 const Planet = require("./models/planet");
 const User = require("./models/user");
