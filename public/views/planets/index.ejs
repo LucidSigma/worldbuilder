@@ -2,19 +2,25 @@
 <%- include("../partials/navbar") %>
 <%- include("../partials/flash") %>
 
-<div class="container">
+<div class="container p-4 rounded">
 	<h1 class="diplay-3">All Planets</h1>
 	<p class="lead">A list of all worlds created by users.</p>
 	<a class="btn btn-success" href="/planets/new">Create a Planet</a>
 	<hr>
 
-	<form class="form-inline mb-3" action="/planets" method="GET">
-		<div class="form-group">
-			<label class="sr-only" for="search">Search by name.</label>
-			<input class="form-control mr-2" id="search" type="text" name="search">
-		</div>
+	<form class="form mb-3" action="/planets" method="GET">
+		<div class="row">
+			<div class="col-12 col-lg-3">
+				<div class="form-group">
+					<label class="sr-only" for="search">Search by name.</label>
+					<input class="form-control mr-2" id="search" type="text" name="search">
+				</div>
+			</div>
 
-		<button class="btn btn-primary d-inline" type="submit">Search by Name</button>
+			<div class="col-6 col-lg-3">
+				<button class="btn btn-primary" type="submit">Search by Name</button>
+			</div>
+		</div>
 	</form>
 
 	<div class="row">

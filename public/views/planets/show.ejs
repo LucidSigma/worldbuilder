@@ -2,7 +2,7 @@
 <%- include("../partials/navbar") %>
 <%- include("../partials/flash") %>
 
-<div class="container">
+<div class="container p-4 rounded">
 	<div class="row mb-4">
 		<div class="col-12">
 			<div class="border rounded p-4">
@@ -21,8 +21,12 @@
 
 	<div class="row mb-2">
 		<div class="col-12 col-md-8">
-			<div class="border border-dark rounded" style="display: flex; height: 400px; background-color: black;">
-				<div class="m-auto rounded-circle" style="position: relative; width: 25%; height: 0; padding-bottom: 25%; background-color: <%= planet.colour %>;"></div>
+			<div class="planet-background border border-dark rounded">
+				<div id="particleStars"></div>
+
+				<div class="planet-container">
+					<div class="m-auto rounded-circle planet" style="background-color: <%= planet.colour %>;"></div>
+				</div>
 			</div>
 		</div>
 
@@ -95,5 +99,8 @@
 		</div>
 	</div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js" type="text/javascript"></script>
+<script src="/scripts/stars.js" type="text/javascript"></script>
 
 <%- include("../partials/footer") %>

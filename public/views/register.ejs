@@ -2,10 +2,10 @@
 <%- include("./partials/navbar") %>
 <%- include("./partials/flash") %>
 
-<div class="container">
+<div class="container rounded p-4">
 	<h2 class="display-4 text-center">Sign Up</h2>
 
-	<form action="/register" method="POST">
+	<form class="user-form" action="/register" method="POST">
 		<div class="form-group">
 			<label for="username">Username</label>
 			<input id="username" class="form-control" type="text" name="username" placeholder="Username" required>

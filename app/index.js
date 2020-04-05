@@ -10,6 +10,7 @@ const methodOverride = require("method-override");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
+const path = require("path");
 
 // UTILITIES
 const seedDatabase = require("./seed");
@@ -26,11 +27,11 @@ const planetController = require("./controllers/planetController");
 const app = express();
 
 app.set("view engine", "ejs");
-app.set("views", __dirname + "/../public/views/");
+app.set("views", path.join(__dirname, "/../public/views/"));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-app.use(express.static(__dirname + "./public/"));
+app.use(express.static(path.join(__dirname, "/../public/")));
 app.use(methodOverride("_method"));
 app.use(flash());
 

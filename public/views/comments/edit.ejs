@@ -2,7 +2,7 @@
 <%- include("../partials/navbar") %>
 <%- include("../partials/flash") %>
 
-<div class="container">
+<div class="container p-4 rounded">
 	<h1 class="display-4 text-center mb-3">Edit Comment</h1>
 
 	<form action="/planets/<%= planetID %>/comments/<%= comment._id %>?_method=PUT" method="POST">
@@ -10,7 +10,8 @@
 			<textarea class="form-control" name="comment[text]" rows="4" required><%= comment.text %></textarea>
 		</div>
 
-		<button class="btn btn-primary" type="submit">Update Comment</button>
+		<button class="btn btn-success" type="submit">Update Comment</button>
+		<a class="btn btn-danger" href="/planets/<%= planetID %>">Cancel</a>
 	</form>
 </div>
 
