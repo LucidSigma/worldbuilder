@@ -15,8 +15,6 @@ const LocalStrategy = require("passport-local");
 const seedDatabase = require("./seed");
 
 // MODELS
-const Comment = require("./models/comment");
-const Planet = require("./models/planet");
 const User = require("./models/user");
 
 // CONTROLLERS
