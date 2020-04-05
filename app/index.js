@@ -56,7 +56,7 @@ mongoose.set("useFindAndModify", false);
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(process.env.DATABASE_URI || "mongodb://localhost:27017/worldbuilder")
+mongoose.connect(process.env.MONGODB_URI || "mongodb://localhost:27017/worldbuilder")
 	.then(() => console.log("Database connected to successfully."))
 	.then(() => {
 		if (process.env.SEED_DB) {
