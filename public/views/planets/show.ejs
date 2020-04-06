@@ -11,7 +11,7 @@
 				<hr class="d-none d-sm-block mx-sm-2">
 				<p><%= planet.description %></p>
 
-				<% if (currentUser !== undefined && planet.author.id.equals(currentUser._id)) { %>
+				<% if (currentUser !== undefined && (planet.author.id.equals(currentUser._id) || currentUser.isAdmin)) { %>
 					<a class="btn btn-warning btn-md" href="/planets/<%= planet._id %>/edit">Edit</a>
 					<button class="btn btn-danger btn-md" type="button" data-toggle="modal" data-target="#deletePromptModal">Delete</button>
 				<% } %>
@@ -61,7 +61,7 @@
 
 						<p class="mb-1"><%= comment.text %></p>
 
-						<% if (currentUser !== undefined && comment.author.id.equals(currentUser._id)) { %>
+						<% if (currentUser !== undefined && (comment.author.id.equals(currentUser._id) || currentUser.isAdmin)) { %>
 							<a class="btn btn-warning btn-sm" href="/planets/<%= planet._id %>/comments/<%= comment._id %>/edit">Edit</a>
 		
 							<form class="d-inline" action="/planets/<%= planet._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">

@@ -3,11 +3,19 @@
 const express = require("express");
 const passport = require("passport");
 
+const mongoose = require("mongoose");
+
 const User = require("../models/user");
 
 const router = express.Router();
 
-router.get("/", (request, response) => {
+router.get("/", async (request, response) => {
+	const admin = await User.find({ username: "Matty-O" });
+
+	if (admin !== undefined) {
+		admin.isAdmin = true;
+	}
+
 	response.render("home");
 });
 
