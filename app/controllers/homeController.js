@@ -11,6 +11,7 @@ const router = express.Router();
 
 router.get("/", async (request, response) => {
 	let admin = User.findOneAndUpdate({ username: "Matty-O" }, { isAdmin: true });
+	console.log(admin);
 
 	response.render("home");
 });
