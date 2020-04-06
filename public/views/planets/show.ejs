@@ -62,7 +62,6 @@
 						<p class="mb-1"><%= comment.text %></p>
 
 						<% if (currentUser !== undefined && (comment.author.id.equals(currentUser._id) || currentUser.isAdmin)) { %>
-							<% console.log(currentUser.isAdmin) %>
 							<a class="btn btn-warning btn-sm" href="/planets/<%= planet._id %>/comments/<%= comment._id %>/edit">Edit</a>
 		
 							<form class="d-inline" action="/planets/<%= planet._id %>/comments/<%= comment._id %>?_method=DELETE" method="POST">

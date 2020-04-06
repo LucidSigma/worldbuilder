@@ -3,16 +3,11 @@
 const express = require("express");
 const passport = require("passport");
 
-const mongoose = require("mongoose");
-
 const User = require("../models/user");
 
 const router = express.Router();
 
 router.get("/", async (request, response) => {
-	let admin = User.findOneAndUpdate({ username: "Matty-O" }, { isAdmin: true });
-	console.dir(admin.isAdmin);
-
 	response.render("home");
 });
 
