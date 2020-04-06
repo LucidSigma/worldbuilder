@@ -10,11 +10,7 @@ const User = require("../models/user");
 const router = express.Router();
 
 router.get("/", async (request, response) => {
-	const admin = await User.find({ username: "Matty-O" });
-
-	if (admin !== undefined) {
-		admin.isAdmin = true;
-	}
+	let admin = User.findOneAndUpdate({ username: "Matty-O" }, { isAdmin: true });
 
 	response.render("home");
 });
